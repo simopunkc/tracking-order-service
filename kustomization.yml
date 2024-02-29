@@ -1,0 +1,2 @@
+resources:
+  - service-tracking-order.cronjob.yml

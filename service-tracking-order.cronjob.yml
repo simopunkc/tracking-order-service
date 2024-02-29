@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: tracking-order-cronjob
+spec:
+  schedule: "*/60 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  startingDeadlineSeconds: 10
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: nodeserver
+              image: tracking-order
+              imagePullPolicy: IfNotPresent
+              command:
+                - ./tracking-order
+          restartPolicy: OnFailure
